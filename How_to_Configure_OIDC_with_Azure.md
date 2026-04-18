@@ -228,6 +228,32 @@ Run the following in Git Bash on your Windows Server 2025:
 SP_ID="a778aa7b-f9e2XXXX"  # Finding SUB_ID (Subscription ID)
 SUB_ID="2fc598a4-XXXX"     # Finding SP_ID (Service Principal Object ID)
 ```
+```sh
+For SUB_ID:
+portal.azure.com
+  └── Subscriptions
+        └── DevOpsLearning
+              └── Overview → Subscription ID ✅
+
+For SP_ID:
+portal.azure.com
+  └── Enterprise Applications
+        └── Search: demo-github-azure-oidc-connection
+              └── Overview → Object ID ✅
+
+        OR
+
+  └── App Registrations → All applications
+        └── demo-github-azure-oidc-connection
+              └── Overview → Managed application in local directory
+                    └── Object ID (SP_ID) ✅
+```
+
+| ID | Where to Find | Portal Section |
+|----|--------------|----------------|
+| `SUB_ID` | Subscriptions → Your subscription → Overview | Subscription ID field |
+| `APP_ID` | App Registrations → Your app → Overview | Application (client) ID field |
+| `SP_ID` | Enterprise Applications → Your app → Overview | Object ID field |
 
 **Step 2 — Check if a role assignment already exists**
 
