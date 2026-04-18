@@ -3,6 +3,8 @@ set -euo pipefail
 
 # Usage:
 # ./delete-oidc-app.sh {APP_NAME} {ORG/REPO} [--dry-run]
+# Example:
+# ./delete-oidc-app.sh demo-app myorg/myrepo --dry-run
 
 APP_NAME=$1
 REPO=$2
@@ -14,7 +16,7 @@ if [[ "$DRY_RUN" == "--dry-run" ]]; then
     echo "🔍 DRY RUN MODE ENABLED — No changes will be made."
 fi
 
-function run_or_echo() {
+run_or_echo() {
     if $IS_DRY_RUN; then
         echo "[DRY RUN] $*"
     else
@@ -29,11 +31,15 @@ if [[ -z "$EXPIRED_TOKEN" ]]; then
     run_or_echo "az login -o none"
 fi
 
+echo "Fetching subscription ID..."
+SUB_ID=$(az account show --query id -o tsv)
+echo "SUB_ID: $SUB_ID"
+
 echo "Looking up Azure AD application..."
 APP_ID=$(az ad app list --filter "displayName eq '$APP_NAME'" --query "[0].appId" -o tsv)
 
 if [[ -z "$APP_ID" ]]; then
-    echo "No application found with name '$APP_NAME'. Nothing to delete."
+    echo "❌ No application found with name '$APP_NAME'. Nothing to delete."
     exit 0
 fi
 
@@ -49,8 +55,10 @@ if [[ -n "$SP_ID" ]]; then
     if [[ -n "$ROLE_ASSIGNMENTS" ]]; then
         while IFS= read -r RA; do
             echo "Deleting role assignment: $RA"
-            run_or_echo "az role assignment delete --ids $RA"
+            run_or_echo "az role assignment delete --subscription $SUB_ID --ids $RA"
         done <<< "$ROLE_ASSIGNMENTS"
+    else
+        echo "No role assignments found."
     fi
 
     echo "Deleting Service Principal..."
@@ -59,8 +67,8 @@ else
     echo "No Service Principal found."
 fi
 
-echo "Deleting Federated Identity Credentials..."
-FICS=$(az ad app federated-credential list --id "$APP_ID" -o tsv --query "[].id" || true)
+echo "Fetching Federated Identity Credentials..."
+FICS=$(az ad app federated-credential list --id "$APP_ID" --query "[].id" -o tsv || true)
 
 if [[ -n "$FICS" ]]; then
     while IFS= read -r FIC_ID; do
@@ -83,7 +91,7 @@ run_or_echo "gh secret delete AZURE_CLIENT_ID --repo $REPO || true"
 run_or_echo "gh secret delete AZURE_SUBSCRIPTION_ID --repo $REPO || true"
 run_or_echo "gh secret delete AZURE_TENANT_ID --repo $REPO || true"
 
-echo "Cleanup complete."
+echo "🎉 Cleanup complete."
 if $IS_DRY_RUN; then
     echo "No changes were made because dry-run mode was enabled."
 fi

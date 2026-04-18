@@ -396,8 +396,11 @@ REPO — GitHub repo in the form ORG/REPO
 
 Example:
 
-Code
-./delete-oidc-app.sh ghazoidc1 jongio/ghazoidctest
+# Dru Run
+ ./delete-oidc-app.sh demo-github-azure-oidc-connection mrsingh_xxx/GitHub-Action-Azure_OpenID_Connect-OIDC --dry-run
+
+ #Normal Run
+ ./delete-oidc-app.sh demo-github-azure-oidc-connection mrsingh_xxx/GitHub-Action-Azure_OpenID_Connect-OIDC
 ```
 That’s it — the script will:
 
