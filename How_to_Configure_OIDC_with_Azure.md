@@ -224,8 +224,9 @@ Run the following in Git Bash on your Windows Server 2025:
 **Step 1 — Set your known values**
 
 ```bash
-SP_ID="a778aa7b-f9e2XXXX"
-SUB_ID="2fc598a4-XXXX"
+
+SP_ID="a778aa7b-f9e2XXXX"  # Finding SUB_ID (Subscription ID)
+SUB_ID="2fc598a4-XXXX"     # Finding SP_ID (Service Principal Object ID)
 ```
 
 **Step 2 — Check if a role assignment already exists**
