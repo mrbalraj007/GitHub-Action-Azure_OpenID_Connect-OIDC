@@ -150,8 +150,97 @@ Press Enter to open https://github.com/login/device in your browser...
 Administrator@WIN2025 MINGW64 ~/GitHub-Action-Azure_OpenID_Connect-OIDC (main)
 
 ```
+Assign Contributor Role via Azure Portal GUI
+
+Step 1 — Go to your Subscription
+
+Open https://portal.azure.com
+In the top search bar, type "Subscriptions" and click it
+learn.microsoft.comdocs.azure.cnlearn.microsoft.comResults from the web
+Click on your subscription named "DevOpsLearning"
 
 
+Step 2 — Open Access Control (IAM)
+
+In the left-hand menu of your subscription, click "Access control (IAM)"
+You will see the IAM dashboard
+
+
+Step 3 — Add Role Assignment
+
+Click the "+ Add" button at the top
+Select "Add role assignment" from the dropdown
+
+
+Step 4 — Select the Contributor Role
+
+You will land on the "Role" tab
+In the search box, type Contributor
+Click on "Contributor" from the list to select it
+Click "Next" at the bottom
+
+
+Step 5 — Assign Access to your Service Principal
+
+On the "Members" tab:
+
+Under "Assign access to" → select "User, group, or service principal"
+Click "+ Select members"
+
+
+In the search panel that opens on the right:
+
+Type the App name: demo-github-azure-oidc-connection
+OR paste the App ID: ff4d5216-a213-4c7e-8715-e1fa9da58da3
+
+
+Click on it when it appears in the results to select it
+Click "Select" at the bottom of the panel
+
+
+Step 6 — Review and Assign
+
+Click "Next" to go to the Review + assign tab
+Confirm the details:
+
+FieldExpected ValueRoleContributorAssigned todemo-github-azure-oidc-connectionScopeYour subscription (DevOpsLearning)
+
+Click "Review + assign" button (you may need to click it twice)
+
+
+Step 7 — Verify the Assignment
+
+Stay on the Access Control (IAM) page
+Click the "Role assignments" tab
+In the search box, type demo-github-azure-oidc-connection
+You should see:
+
+NameRoleTypeScopedemo-github-azure-oidc-connectionContributorServicePrincipalSubscription
+
+Step 8 — Re-run Your GitHub Actions Pipeline
+
+Go to your GitHub repo:
+
+   https://github.com/mrbalraj007/GitHub-Action-Azure_OpenID_Connect-OIDC
+
+Click Actions tab
+Select your workflow "Run Azure Login with OpenID Connect"
+Click "Run workflow" → "Run workflow"
+
+
+⏱️ Tip: Wait 2–3 minutes after assigning the role before re-running the pipeline. Azure role propagation is not instant.
+
+```bash
+Quick Visual Path Summary
+portal.azure.com
+  └── Subscriptions
+        └── DevOpsLearning
+              └── Access Control (IAM)
+                    └── + Add → Add role assignment
+                          ├── Role tab       → Select "Contributor"
+                          ├── Members tab    → Select "demo-github-azure-oidc-connection"
+                          └── Review + assign → Confirm ✅
+```
 
 
 
