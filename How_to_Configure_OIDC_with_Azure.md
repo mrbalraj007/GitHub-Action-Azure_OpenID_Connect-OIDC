@@ -371,6 +371,62 @@ ci.yml
   └── azure/login@v1 with OIDC (no passwords/keys)             ✅
 ```
 
+
+## Delete OIDC connection
+🧭 How to Run the Delete Script in Your Console
+
+1️⃣ Save the script to a file
+Create a new file named:
+```sh
+delete-oidc-app.sh
+# Paste the script content into it.
+```
+2️⃣ Make the script executable
+In your terminal, navigate to the folder where the script is saved, then run:
+```sh
+chmod +x delete-oidc-app.sh
+```
+This gives the script permission to run.
+
+3️⃣ Run the script with required arguments
+The script expects:
+```sh
+APP_NAME — the Azure AD application name
+REPO — GitHub repo in the form ORG/REPO
+
+Example:
+
+Code
+./delete-oidc-app.sh ghazoidc1 jongio/ghazoidctest
+```
+That’s it — the script will:
+
+  - Log into Azure (if needed) 
+  - Find the app 
+  - Delete FICs  
+  - Delete role assignments  
+  - Delete the service principal  
+  - Delete the Azure AD application  
+  - Delete GitHub secrets
+
+🧪 Want to test before deleting?
+
+You can run a dry run by checking what will be deleted:
+
+Check if the app exists
+```sh
+az ad app list --filter "displayName eq 'ghazoidc1'" --query "[].appId"
+```
+Check service principal
+```sh
+az ad sp list --filter "appId eq '<APP_ID>'" --query "[].id"
+```
+Check FICs
+```sh
+az ad app federated-credential list --id <APP_ID>
+```
+If these return values, the delete script will remove them.
+
 ---
 
 ## References
