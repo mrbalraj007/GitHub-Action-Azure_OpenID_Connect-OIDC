@@ -70,9 +70,86 @@ Restart PowerShell and verify:
 envsubst --version
 ``` -->
 
-./oidc.sh demo-github-azure-oidc-connection mrbalraj007/GitHub-Action-Azure_OpenID_Connect-OIDC ./fics.json
+./oidc.sh demo-github-azure-oidc-connection mrsingh_xxx/GitHub-Action-Azure_OpenID_Connect-OIDC ./fics.json
 
+```bash
+$ ./oidc.sh demo-github-azure-oidc-connection mrsingh_xxx/GitHub-Action-Azure_OpenID_Connect-OIDC ./fics.json
+Checking Azure CLI login status...
+ ]DevOpsLearning"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+Do you want to use the above subscription? (Y/n) y
+Getting Subscription Id...
+SUB_ID: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+Getting Tenant Id...
+TENANT_ID: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+Configuring application...
+Existing AD app found.
+APP_ID: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+Configuring Service Principal...
+First checking if the Service Principal already exists...
+Existing Service Principal found.
+SP_ID: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+Creating Federated Identity Credentials...
 
+Creating FIC with subject 'repo:mrsingh_xxx/GitHub-Action-Azure_OpenID_Connect-OIDC:pull_request'.
+{
+  "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#applications('b833d726-0eae-42dd-8f63-1fb0151b8cfb')/federatedIdentityCredentials/$entity",
+  "audiences": [
+    "api://AzureADTokenExchange"
+  ],
+  "description": "pr",
+  "id": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "issuer": "https://token.actions.githubusercontent.com",
+  "name": "prfic",
+  "subject": "repo:mrsingh_xxx/GitHub-Action-Azure_OpenID_Connect-OIDC:pull_request"
+}
+Creating FIC with subject 'repo:mrsingh_xxx/GitHub-Action-Azure_OpenID_Connect-OIDC:ref:refs/heads/main'.
+{
+  "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#applications('b833d726-0eae-42dd-8f63-1fb0151b8cfb')/federatedIdentityCredentials/$entity",
+  "audiences": [
+    "api://AzureADTokenExchange"
+  ],
+  "description": "main",
+  "id": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "issuer": "https://token.actions.githubusercontent.com",
+  "name": "mainfic",
+  "subject": "repo:mrsingh_xxx/GitHub-Action-Azure_OpenID_Connect-OIDC:ref:refs/heads/main"
+}
+Creating FIC with subject 'repo:mrsingh_xxx/GitHub-Action-Azure_OpenID_Connect-OIDC:ref:refs/heads/master'.
+{
+  "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#applications('b833d726-0eae-42dd-8f63-1fb0151b8cfb')/federatedIdentityCredentials/$entity",
+  "audiences": [
+    "api://AzureADTokenExchange"
+  ],
+  "description": "master",
+  "id": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "issuer": "https://token.actions.githubusercontent.com",
+  "name": "masterfic",
+  "subject": "repo:mrsingh_xxx/GitHub-Action-Azure_OpenID_Connect-OIDC:ref:refs/heads/master"
+}
+Creating the following GitHub repo secrets...
+AZURE_CLIENT_ID=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+AZURE_SUBSCRIPTION_ID=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+AZURE_TENANT_ID=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+Logging into GitHub CLI...
+? Where do you use GitHub? GitHub.com
+? What is your preferred protocol for Git operations on this host? HTTPS
+? Authenticate Git with your GitHub credentials? Yes
+? How would you like to authenticate GitHub CLI? Login with a web browser
+
+! First copy your one-time code: 81BA-6D8D
+Press Enter to open https://github.com/login/device in your browser...
+✓ Authentication complete.
+- gh config set -h github.com git_protocol https
+✓ Configured git protocol
+✓ Logged in as mrsingh_xxx
+! You were already logged in to this account
+✓ Set Actions secret AZURE_CLIENT_ID for mrsingh_xxx/GitHub-Action-Azure_OpenID_Connect-OIDC
+✓ Set Actions secret AZURE_SUBSCRIPTION_ID for mrsingh_xxx/GitHub-Action-Azure_OpenID_Connect-OIDC
+✓ Set Actions secret AZURE_TENANT_ID for mrsingh_xxx/GitHub-Action-Azure_OpenID_Connect-OIDC
+
+Administrator@WIN2025 MINGW64 ~/GitHub-Action-Azure_OpenID_Connect-OIDC (main)
+
+```
 
 
 
