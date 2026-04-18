@@ -53,10 +53,11 @@ if [[ -n "$SP_ID" ]]; then
     ROLE_ASSIGNMENTS=$(az role assignment list --assignee "$SP_ID" --query "[].id" -o tsv)
 
     if [[ -n "$ROLE_ASSIGNMENTS" ]]; then
-        while IFS= read -r RA; do
-            echo "Deleting role assignment: $RA"
-            run_or_echo "az role assignment delete --subscription $SUB_ID --ids $RA"
-        done <<< "$ROLE_ASSIGNMENTS"
+        echo "Deleting role assignments using scope-based deletion (Windows-safe)..."
+        run_or_echo "az role assignment delete \
+            --assignee $SP_ID \
+            --role contributor \
+            --scope /subscriptions/$SUB_ID"
     else
         echo "No role assignments found."
     fi
