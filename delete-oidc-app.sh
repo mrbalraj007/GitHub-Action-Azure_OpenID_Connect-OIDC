@@ -3,8 +3,6 @@ set -euo pipefail
 
 # Usage:
 # ./delete-oidc-app.sh {APP_NAME} {ORG/REPO} [--dry-run]
-# Example:
-# ./delete-oidc-app.sh demo-app myorg/myrepo --dry-run
 
 APP_NAME=$1
 REPO=$2
@@ -49,20 +47,7 @@ echo "Looking up Service Principal..."
 SP_ID=$(az ad sp list --filter "appId eq '$APP_ID'" --query "[0].id" -o tsv || true)
 
 if [[ -n "$SP_ID" ]]; then
-    echo "Fetching role assignments..."
-    ROLE_ASSIGNMENTS=$(az role assignment list --assignee "$SP_ID" --query "[].id" -o tsv)
-
-    if [[ -n "$ROLE_ASSIGNMENTS" ]]; then
-        echo "Deleting role assignments using scope-based deletion (Windows-safe)..."
-        run_or_echo "az role assignment delete \
-            --assignee $SP_ID \
-            --role contributor \
-            --scope /subscriptions/$SUB_ID"
-    else
-        echo "No role assignments found."
-    fi
-
-    echo "Deleting Service Principal..."
+    echo "Deleting Service Principal (role assignments will be auto-removed)..."
     run_or_echo "az ad sp delete --id $SP_ID"
 else
     echo "No Service Principal found."
