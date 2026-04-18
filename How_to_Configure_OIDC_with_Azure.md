@@ -48,7 +48,7 @@ gh auth login
     ```powershell   
     jq --version
     ```
-8. envsubst (via Git for Windows)
+<!-- 8. envsubst (via Git for Windows)
 
    - envsubst is not natively available on Windows. The easiest way to get it is via Git for Windows:
 
@@ -66,10 +66,11 @@ Add Git's usr\bin to your system PATH:
 ```
 Restart PowerShell and verify:
 
-powershell   envsubst --version
+```powershell   
+envsubst --version
+``` -->
 
-
-./oidc.sh demo-github-azure-oidc-connection mrbalraj007/GitHub-Action-Azure_OpenID_Connect-OIDC
+./oidc.sh demo-github-azure-oidc-connection mrbalraj007/GitHub-Action-Azure_OpenID_Connect-OIDC ./fics.json
 
 
 
