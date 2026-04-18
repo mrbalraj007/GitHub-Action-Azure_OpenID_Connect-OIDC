@@ -73,6 +73,7 @@ Run the script with your app name, GitHub repo, and FICs JSON file:
 ```sh
 ./oidc.sh demo-github-azure-oidc-connection mrsingh_xxx/GitHub-Action-Azure_OpenID_Connect-OIDC ./fics.json
 ```
+<img width="300" height="150" alt="Image" src="https://github.com/user-attachments/assets/00bd9373-d945-41df-b52f-ed2cf5b53b63" />
 
 <details>
 <summary><b>▶ Expected output</b></summary>
